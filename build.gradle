@@ -1,6 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.1.5'
+	id 'nu.studer.jooq' version '4.1'
+	id 'org.springframework.boot' version '2.7.17'
 	id 'io.spring.dependency-management' version '1.1.3'
 }
 
@@ -8,7 +9,7 @@ group = 'com.base'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+	sourceCompatibility = '11'
 }
 
 configurations {
@@ -30,6 +31,61 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+jooq {
+	version = '3.12.3'
+	edition = 'OSS'
+	generateSchemaSourceOnCompilation = true
+	Db(sourceSets.main) {
+		jdbc {
+			driver = 'com.mysql.jdbc.Driver'
+			url = 'jdbc:mysql://'
+			user = 'root'
+			password = ''
+		}
+		generator {
+			name = 'org.jooq.codegen.DefaultGenerator'
+			strategy {
+				name = 'com.appg.utils.jooq.config.CustomGeneratorStrategy'
+			}
+			database {
+				name = 'org.jooq.meta.mysql.MySQLDatabase'
+				schemata {
+					schema {
+						inputSchema = 'JooqBase'
+					}
+				}
+				forcedTypes {
+					forcedType {
+						userType = 'java.time.LocalDateTime'
+						converter = 'com.example.LocalDateTimeForVarcharConverter'
+						expression = '.*DateTime'
+						types = 'VARCHAR\\(14\\)'
+					}
+					forcedType {
+						name = 'INT'
+						expression = '.*'
+						types = 'TINYINT'
+					}
+				}
+			}
+			generate {
+				jpaAnnotations = true
+				pojos = true
+				javaTimeTypes = true // Java 8 java.time API 로 날짜,시간 표현
+				relations = true
+				globalObjectReferences = true
+				pojosEqualsAndHashCode = true
+				indexes = false
+			}
+			target {
+				packageName = group+'.jooq.bean'
+				directory = file('src/main/java').absolutePath
+				encoding = 'UTF-8'
+			}
+		}
+	}
 }
 
 tasks.named('test') {
