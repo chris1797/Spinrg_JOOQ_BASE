@@ -47,7 +47,7 @@ jooq {
 		generator {
 			name = 'org.jooq.codegen.DefaultGenerator'
 			strategy {
-				name = 'com.appg.utils.jooq.config.CustomGeneratorStrategy'
+				name = ''
 			}
 			database {
 				name = 'org.jooq.meta.mysql.MySQLDatabase'
