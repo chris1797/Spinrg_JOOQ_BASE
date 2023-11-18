@@ -7,6 +7,8 @@ plugins {
 
 group = 'com.base'
 version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+compileJava.options.encoding = "UTF-8"
 
 java {
 	sourceCompatibility = '11'
@@ -46,14 +48,11 @@ jooq {
 		}
 		generator {
 			name = 'org.jooq.codegen.DefaultGenerator'
-			strategy {
-				name = ''
-			}
 			database {
 				name = 'org.jooq.meta.mysql.MySQLDatabase'
 				schemata {
 					schema {
-						inputSchema = 'JooqBase'
+						inputSchema = 'local_database'
 					}
 				}
 				forcedTypes {
