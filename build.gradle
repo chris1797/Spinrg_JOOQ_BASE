@@ -5,7 +5,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.3'
 }
 
-group = 'com.base'
+group = 'com.base.jooq'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 compileJava.options.encoding = "UTF-8"
@@ -35,6 +35,14 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+dependencies {
+	implementation 'org.jooq:jooq'
+	implementation group: 'org.eclipse.persistence', name: 'javax.persistence', version: '2.2.1'
+	implementation 'mysql:mysql-connector-java:5.1.48'
+	jooqRuntime('org.slf4j:slf4j-simple:1.7.9')
+	jooqRuntime 'mysql:mysql-connector-java:5.1.48'
+}
+
 jooq {
 	version = '3.12.3'
 	edition = 'OSS'
@@ -42,7 +50,7 @@ jooq {
 	Db(sourceSets.main) {
 		jdbc {
 			driver = 'com.mysql.jdbc.Driver'
-			url = 'jdbc:mysql://localhost::3306'
+			url = 'jdbc:mysql://localhost:3306'
 			user = 'root'
 			password = ''
 		}
