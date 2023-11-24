@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class BaseController {
 
-    private final BaseService
+    private final BaseService service;
 }
