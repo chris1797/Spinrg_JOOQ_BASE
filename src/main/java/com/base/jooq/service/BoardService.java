@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
-public class BaseService {
+public class BoardService {
 
+    private final BoardDao dao
 }
