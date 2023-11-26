@@ -19,6 +19,10 @@ public class BoardService {
     private final BoardDao dao;
 
     public List<Tblboard> getAllBoard(BoardPageReq req) {
+        /**
+         * Result<?> 타입으로 리턴되었을 경우 Tblboard 클래스타입으로 변환
+         */
+//        return dao.getAllBoard(req).into(Tblboard.class);
         return dao.getAllBoard(req);
     }
 }
