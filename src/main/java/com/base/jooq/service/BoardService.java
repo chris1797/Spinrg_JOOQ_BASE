@@ -25,4 +25,9 @@ public class BoardService {
 //        return dao.getAllBoard(req).into(Tblboard.class);
         return dao.getAllBoard(req);
     }
+
+    public Tblboard getBoard(Long boardNo) throws Exception{
+        return dao.getBoardByNo(boardNo).orElseThrow(() ->
+                new Exception("This data could not be found."));
+    }
 }
