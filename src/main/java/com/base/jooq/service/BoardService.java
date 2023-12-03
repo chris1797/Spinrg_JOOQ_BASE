@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
-public class BoardService {
+public class BoardService extends BaseService {
 
     private final BoardDao dao;
 

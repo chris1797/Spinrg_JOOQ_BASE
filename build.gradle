@@ -39,6 +39,7 @@ dependencies {
 	implementation 'org.jooq:jooq'
 	implementation group: 'org.eclipse.persistence', name: 'javax.persistence', version: '2.2.1'
 	implementation 'mysql:mysql-connector-java:5.1.48'
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
 	jooqRuntime('org.slf4j:slf4j-simple:1.7.9')
 	jooqRuntime 'mysql:mysql-connector-java:5.1.48'
 }
