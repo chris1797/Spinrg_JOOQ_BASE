@@ -1,4 +1,4 @@
-package com.base.jooq.jooq.dto.request;
+package com.base.jooq.jooq.dto.request.board;
 
 import lombok.Data;
 

@@ -1,7 +1,6 @@
 package com.base.jooq.jooq.dao;
 
 import com.base.jooq.jooq.bean.Tables;
-import com.base.jooq.jooq.dto.request.BoardPageReq;
 import com.base.jooq.jooq.dto.request.UserPageReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

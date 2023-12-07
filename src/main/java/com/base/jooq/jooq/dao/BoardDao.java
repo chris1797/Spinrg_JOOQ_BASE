@@ -3,7 +3,7 @@ package com.base.jooq.jooq.dao;
 import com.base.jooq.jooq.bean.Tables;
 import com.base.jooq.jooq.bean.tables.pojos.Board;
 import com.base.jooq.jooq.bean.tables.records.BoardRecord;
-import com.base.jooq.jooq.dto.request.BoardPageReq;
+import com.base.jooq.jooq.dto.request.board.BoardPageReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.Condition;

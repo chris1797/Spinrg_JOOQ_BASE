@@ -3,7 +3,8 @@ package com.base.jooq.service;
 import com.base.jooq.jooq.bean.tables.pojos.Board;
 import com.base.jooq.jooq.bean.tables.records.BoardRecord;
 import com.base.jooq.jooq.dao.BoardDao;
-import com.base.jooq.jooq.dto.request.BoardPageReq;
+import com.base.jooq.jooq.dto.request.board.BoardPageReq;
+import com.base.jooq.jooq.dto.request.board.BoardSaveReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -35,9 +36,9 @@ public class BoardService extends BaseService {
                 new Exception("This data could not be found."));
     }
 
-    public boolean save(Board entity) throws Exception {
-        if (Objects.isNull(entity)) throw new Exception("This data is null.");
-        BoardRecord record = mapper.map(entity, BoardRecord.class);
+    public boolean save(BoardSaveReq req) throws Exception {
+        if (Objects.isNull(req)) throw new Exception("This data is null.");
+        BoardRecord record = mapper.map(req, BoardRecord.class);
         return dao.save(record);
     }
 
