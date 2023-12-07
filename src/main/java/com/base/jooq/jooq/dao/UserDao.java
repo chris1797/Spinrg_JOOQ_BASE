@@ -23,7 +23,7 @@ public class UserDao extends BaseDao {
     private Condition isIncludes(UserPageReq req) {
         if (Objects.isNull(req.getName())) return DSL.condition(true);
 
-        return Tables.TBLUSER.NAME.contains(req.getName())
-                .and(Tables.TBLUSER.ISACTIVE.isTrue());
+        return Tables.USER.NAME.contains(req.getName())
+                .and(Tables.USER.ISACTIVE.isTrue());
     }
 }

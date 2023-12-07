@@ -1,8 +1,7 @@
 package com.base.jooq.service;
 
 import com.base.jooq.jooq.bean.tables.pojos.Board;
-import com.base.jooq.jooq.bean.tables.pojos.Tblboard;
-import com.base.jooq.jooq.bean.tables.records.TblboardRecord;
+import com.base.jooq.jooq.bean.tables.records.BoardRecord;
 import com.base.jooq.jooq.dao.BoardDao;
 import com.base.jooq.jooq.dto.request.BoardPageReq;
 import lombok.RequiredArgsConstructor;
@@ -31,14 +30,14 @@ public class BoardService extends BaseService {
         return dao.getAllBoard(req);
     }
 
-    public Tblboard getBoard(Long boardNo) throws Exception{
+    public Board getBoard(Long boardNo) throws Exception{
         return dao.getBoardByNo(boardNo).orElseThrow(() ->
                 new Exception("This data could not be found."));
     }
 
-    public boolean save(Tblboard entity) throws Exception {
+    public boolean save(Board entity) throws Exception {
         if (Objects.isNull(entity)) throw new Exception("This data is null.");
-        TblboardRecord record = mapper.map(entity, TblboardRecord.class);
+        BoardRecord record = mapper.map(entity, BoardRecord.class);
         return dao.save(record);
     }
 
