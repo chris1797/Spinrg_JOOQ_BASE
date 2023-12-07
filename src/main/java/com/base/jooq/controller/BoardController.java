@@ -1,6 +1,6 @@
 package com.base.jooq.controller;
 
-import com.base.jooq.jooq.bean.tables.pojos.Tblboard;
+import com.base.jooq.jooq.bean.tables.pojos.Board;
 import com.base.jooq.jooq.dto.request.BoardPageReq;
 import com.base.jooq.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class BoardController {
     private final BoardService service;
 
     @GetMapping
-    public ResponseEntity<List<Tblboard>> getAllBoard(@ModelAttribute BoardPageReq req) {
+    public ResponseEntity<List<Board>> getAllBoard(@ModelAttribute BoardPageReq req) {
         return ResponseEntity.ok().body(service.getAllBoard(req));
     }
 }

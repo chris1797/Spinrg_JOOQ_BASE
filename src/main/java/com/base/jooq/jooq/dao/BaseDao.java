@@ -1,4 +1,5 @@
 package com.base.jooq.jooq.dao;
+
 import com.base.jooq.jooq.bean.Tables;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

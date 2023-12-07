@@ -1,5 +1,6 @@
 package com.base.jooq.service;
 
+import com.base.jooq.jooq.bean.tables.pojos.Board;
 import com.base.jooq.jooq.bean.tables.pojos.Tblboard;
 import com.base.jooq.jooq.bean.tables.records.TblboardRecord;
 import com.base.jooq.jooq.dao.BoardDao;
@@ -22,7 +23,7 @@ public class BoardService extends BaseService {
     private final BoardDao dao;
     private final ModelMapper mapper;
 
-    public List<Tblboard> getAllBoard(BoardPageReq req) {
+    public List<Board> getAllBoard(BoardPageReq req) {
         /**
          * Result<?> 타입으로 리턴되었을 경우 Tblboard 클래스타입으로 변환
          */
