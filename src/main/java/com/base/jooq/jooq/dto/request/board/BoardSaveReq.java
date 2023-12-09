@@ -1,6 +1,6 @@
 package com.base.jooq.jooq.dto.request.board;
 
-import com.base.jooq.component.role.BoardType;
+import com.base.jooq.common.constants.enums.BoardType;
 import com.base.jooq.jooq.bean.tables.pojos.Board;
 import lombok.*;
 
@@ -8,6 +8,5 @@ import lombok.*;
 @Data
 public class BoardSaveReq extends Board {
 
-    private BoardType boardType;
 
 }

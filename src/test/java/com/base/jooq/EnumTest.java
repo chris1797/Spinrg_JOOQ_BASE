@@ -1,6 +1,6 @@
 package com.base.jooq;
 
-import com.base.jooq.component.role.BoardType;
+import com.base.jooq.common.constants.enums.BoardType;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

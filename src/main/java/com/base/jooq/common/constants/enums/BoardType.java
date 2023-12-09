@@ -1,4 +1,4 @@
-package com.base.jooq.component.role;
+package com.base.jooq.common.constants.enums;
 
 public enum BoardType {
 

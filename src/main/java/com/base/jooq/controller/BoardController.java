@@ -24,7 +24,12 @@ public class BoardController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Boolean> save(@RequestBody BoardSaveReq req) throws Exception {
+    public ResponseEntity<Boolean> save(@ModelAttribute BoardSaveReq req) throws Exception {
         return ResponseEntity.ok().body(service.save(req));
+    }
+
+    @DeleteMapping(value = "/{boardNo:[\\d]+}")
+    public ResponseEntity<Boolean> remove(@PathVariable Long boardNo) throws Exception {
+        return ResponseEntity.ok().body(service.remove(boardNo));
     }
 }
