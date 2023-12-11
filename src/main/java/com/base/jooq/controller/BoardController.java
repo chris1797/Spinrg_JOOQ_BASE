@@ -23,6 +23,11 @@ public class BoardController {
         return ResponseEntity.ok().body(service.getAllBoard(req));
     }
 
+    @GetMapping("/{boardNo:[\\d]+}")
+    public ResponseEntity<Board> getBoard(@PathVariable Long boardNo) throws Exception {
+        return ResponseEntity.ok().body(service.getBoard(boardNo));
+    }
+
     @PostMapping("/save")
     public ResponseEntity<Boolean> save(@ModelAttribute BoardSaveReq req) throws Exception {
         return ResponseEntity.ok().body(service.save(req));
