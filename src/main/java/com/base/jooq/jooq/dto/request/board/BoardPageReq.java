@@ -10,4 +10,5 @@ public class BoardPageReq {
     private String keyword;
     private LocalDate startDate;
     private LocalDate endDate;
+    private Long userNo;
 }

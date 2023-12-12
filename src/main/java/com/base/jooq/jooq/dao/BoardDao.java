@@ -29,10 +29,18 @@ public class BoardDao extends BaseDao {
                 .or(Tables.BOARD.CONTENTS.contains(req.getKeyword()));
     }
 
+    private Condition isIncludesUserNo(BoardPageReq req) {
+        if (Objects.isNull(req.getUserNo())) return DSL.condition(true);
+
+        return Tables.BOARD.USERNO.eq(req.getUserNo());
+    }
+
+
     public List<Board> getAllBoard(BoardPageReq req) {
         return query.select()
                 .from(Tables.BOARD)
                 .where(isIncludes(req))
+                .and(isIncludesUserNo(req))
                 .fetch().into(Board.class);
     }
 
