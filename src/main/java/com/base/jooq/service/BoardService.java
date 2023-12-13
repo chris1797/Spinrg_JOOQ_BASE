@@ -38,6 +38,9 @@ public class BoardService extends BaseService {
 
     public boolean save(BoardSaveReq req) throws Exception {
         if (Objects.isNull(req)) throw new Exception("This data is null.");
+        if (Objects.isNull(req.getUserno()) || req.getUserno() < 1)
+            throw new Exception("This user data is not invalid");
+
         BoardRecord record = mapper.map(req, BoardRecord.class);
         return dao.save(record);
     }
