@@ -1,7 +1,7 @@
 package com.base.jooq.controller;
 
 import com.base.jooq.jooq.bean.tables.pojos.User;
-import com.base.jooq.jooq.dto.request.UserPageReq;
+import com.base.jooq.jooq.dto.request.user.UserPageReq;
 import com.base.jooq.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.base.jooq.jooq.dto.request;
+package com.base.jooq.jooq.dto.request.user;
 
 import com.base.jooq.jooq.bean.tables.pojos.User;
 import lombok.Data;
