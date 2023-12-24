@@ -13,6 +13,7 @@ import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @Repository
@@ -37,10 +38,10 @@ public class UserDao extends BaseDao {
                 .fetch();
     }
 
-    public Result<?> getUserByNo(Long userNo) {
+    public Optional<User> getUserByNo(Long userNo) {
         return query.select()
                 .from(Tables.USER)
                 .where(Tables.USER.USERNO.eq(userNo))
-                .fetch();
+                .fetchOptionalInto(User.class);
     }
 }
