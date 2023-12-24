@@ -21,4 +21,9 @@ public class UserController {
     public ResponseEntity<List<User>> getUsers(@ModelAttribute UserPageReq req) {
         return ResponseEntity.ok().body(service.getUsers(req));
     }
+
+    @GetMapping("/{userNo:[\\d]+}")
+    public ResponseEntity<User> getUser(@PathVariable Long userNo) throws Exception {
+        return ResponseEntity.ok().body(service.getUser(userNo));
+    }
 }

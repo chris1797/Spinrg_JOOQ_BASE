@@ -47,4 +47,9 @@ public class UserService {
         // User pojo return 타입으로 dao 구현하기
         return false;
     }
+
+    public User getUser(Long userNo) throws Exception {
+        if (Objects.isNull(userNo) || userNo < 1) throw new Exception("This data could not be found.");
+        return mapper.map(dao.getUserByNo(userNo), User.class);
+    }
 }
