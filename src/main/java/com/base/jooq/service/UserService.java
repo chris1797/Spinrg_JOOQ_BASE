@@ -32,12 +32,13 @@ public class UserService {
         Result<?> queryResults = dao.getUsers(req);
 
         // stream 테스트 작성하기
-        List<User> list = queryResults.stream().map(query -> mapper.map(query.into(User.class), User.class)).collect(Collectors.toList());
+        List<User> list = queryResults.stream()
+                .map(query -> mapper.map(query.into(User.class), User.class)).collect(Collectors.toList());
 
         return list;
     }
 
-    public Boolean save(UserSaveReq req) throws Exception {
+    public Boolean signUp(UserSaveReq req) throws Exception {
         if (Objects.isNull(req.getUserId()) || Objects.isNull(req.getUserPwd()))
             throw new Exception("There is no data.");
 
@@ -52,4 +53,5 @@ public class UserService {
         if (Objects.isNull(userNo) || userNo < 1) throw new Exception("This data could not be found.");
         return mapper.map(dao.getUserByNo(userNo), User.class);
     }
+    
 }

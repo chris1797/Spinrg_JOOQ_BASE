@@ -2,6 +2,7 @@ package com.base.jooq.controller;
 
 import com.base.jooq.jooq.bean.tables.pojos.User;
 import com.base.jooq.jooq.dto.request.user.UserPageReq;
+import com.base.jooq.jooq.dto.request.user.UserSaveReq;
 import com.base.jooq.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,5 +26,10 @@ public class UserController {
     @GetMapping("/{userNo:[\\d]+}")
     public ResponseEntity<User> getUser(@PathVariable Long userNo) throws Exception {
         return ResponseEntity.ok().body(service.getUser(userNo));
+    }
+
+    @PostMapping("/sign/up")
+    public ResponseEntity<Boolean> signUp(@RequestBody UserSaveReq req) throws Exception {
+        return ResponseEntity.ok().body(service.signUp(req));
     }
 }
