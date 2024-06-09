@@ -1,8 +1,6 @@
 package com.base.jooq.jooq.dao;
 
-import com.base.jooq.jooq.bean.Tables;
 import com.base.jooq.jooq.bean.tables.pojos.User;
-import com.base.jooq.jooq.bean.tables.records.UserRecord;
 import com.base.jooq.jooq.dto.request.user.UserPageReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +13,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Objects;
 import java.util.Optional;
 
+import static com.base.jooq.jooq.bean.tables.User.USER;
+import static org.jooq.impl.DSL.multiset;
+
 @Slf4j
 @Repository
 @RequiredArgsConstructor
@@ -26,22 +27,23 @@ public class UserDao extends BaseDao {
     private Condition isIncludes(UserPageReq req) {
         if (Objects.isNull(req.getName())) return DSL.condition(true);
 
-        return Tables.USER.NAME.contains(req.getName())
-                .and(Tables.USER.ISACTIVE.isTrue());
+        return USER.NAME.contains(req.getName())
+                .and(USER.IS_ACTIVE.isTrue());
     }
 
     public Result<?> getUsers(UserPageReq req) {
         return query.select()
-                .from(Tables.USER)
+                .from(USER)
                 .where(this.isIncludes(req))
-                .and(Tables.USER.ISACTIVE.isTrue())
+                .and(USER.IS_ACTIVE.isTrue())
                 .fetch();
     }
 
     public Optional<User> getUserByNo(Long userNo) {
         return query.select()
-                .from(Tables.USER)
-                .where(Tables.USER.USERNO.eq(userNo))
+                .from(USER)
+                .where(USER.USER_NO
+                .eq(userNo))
                 .fetchOptionalInto(User.class);
     }
 }

@@ -36,7 +36,7 @@ dependencies {
 }
 
 dependencies {
-	implementation 'org.jooq:jooq'
+	implementation 'org.jooq:jooq:3.19.9'
 	implementation group: 'org.eclipse.persistence', name: 'javax.persistence', version: '2.2.1'
 	implementation 'mysql:mysql-connector-java:5.1.48'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
@@ -52,7 +52,7 @@ dependencies {
 }
 
 jooq {
-	version = '3.12.3'
+	version = '3.19.9'
 	edition = 'OSS'
 	generateSchemaSourceOnCompilation = true
 	Db(sourceSets.main) {
@@ -68,7 +68,7 @@ jooq {
 				name = 'org.jooq.meta.mysql.MySQLDatabase'
 				schemata {
 					schema {
-						inputSchema = 'local_database'
+						inputSchema = 'test_db'
 					}
 				}
 				forcedTypes {
