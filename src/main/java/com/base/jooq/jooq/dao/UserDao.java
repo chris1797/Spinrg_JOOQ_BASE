@@ -15,6 +15,7 @@ import java.util.Optional;
 
 import static com.base.jooq.jooq.bean.tables.User.USER;
 import static org.jooq.impl.DSL.multiset;
+import static org.jooq.impl.DSL.select;
 
 @Slf4j
 @Repository
@@ -32,7 +33,13 @@ public class UserDao extends BaseDao {
     }
 
     public Result<?> getUsers(UserPageReq req) {
-        return query.select()
+        return query.select(DSL.multiset(
+                select(USER.USER_NO,
+                        USER.NAME,
+                        USER.EMAIL,
+                        USER.IS_ACTIVE
+                ).from(USER)
+                ))
                 .from(USER)
                 .where(this.isIncludes(req))
                 .and(USER.IS_ACTIVE.isTrue())
