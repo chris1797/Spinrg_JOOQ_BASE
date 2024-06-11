@@ -47,7 +47,7 @@ public class UserDao extends BaseDao {
     public Optional<User> getUserByNo(Long userNo) {
         return query.select()
                 .from(USER)
-                .where(USER.USERNO
+                .where(USER.USER_NO
                 .eq(userNo))
                 .fetchOptionalInto(User.class);
     }
