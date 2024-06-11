@@ -13,9 +13,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.base.jooq.jooq.bean.tables.User.USER;
-import static org.jooq.impl.DSL.multiset;
+import static com.base.jooq.jooq.bean.Tables.USER;
 import static org.jooq.impl.DSL.select;
+
 
 @Slf4j
 @Repository
@@ -29,27 +29,27 @@ public class UserDao extends BaseDao {
         if (Objects.isNull(req.getName())) return DSL.condition(true);
 
         return USER.NAME.contains(req.getName())
-                .and(USER.IS_ACTIVE.isTrue());
+                .and(USER.ISACTIVE.isTrue());
     }
 
     public Result<?> getUsers(UserPageReq req) {
         return query.select(DSL.multiset(
-                select(USER.USER_NO,
+                select(USER.USERNO,
                         USER.NAME,
                         USER.EMAIL,
-                        USER.IS_ACTIVE
-                ).from(USER)
+                        USER.ISACTIVE)
+                        .from(USER)
                 ))
                 .from(USER)
                 .where(this.isIncludes(req))
-                .and(USER.IS_ACTIVE.isTrue())
+                .and(USER.ISACTIVE.isTrue())
                 .fetch();
     }
 
     public Optional<User> getUserByNo(Long userNo) {
         return query.select()
                 .from(USER)
-                .where(USER.USER_NO
+                .where(USER.USERNO
                 .eq(userNo))
                 .fetchOptionalInto(User.class);
     }
