@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Objects;
 import java.util.Optional;
 
+import static com.base.jooq.jooq.bean.Tables.COMMENT;
 import static com.base.jooq.jooq.bean.Tables.USER;
 import static org.jooq.impl.DSL.select;
 
@@ -29,20 +30,17 @@ public class UserDao extends BaseDao {
         if (Objects.isNull(req.getName())) return DSL.condition(true);
 
         return USER.NAME.contains(req.getName())
-                .and(USER.ISACTIVE.isTrue());
+                .and(USER.IS_ACTIVE.isTrue());
     }
 
     public Result<?> getUsers(UserPageReq req) {
         return query.select(DSL.multiset(
-                select(USER.USERNO,
-                        USER.NAME,
-                        USER.EMAIL,
-                        USER.ISACTIVE)
-                        .from(USER)
-                ))
+                select(COMMENT.COMMENT_NO, COMMENT.CONTENT)
+                        .from(COMMENT).join(USER).on(COMMENT.USER_NO.eq(USER.USER_NO)
+                )).as("comments"))
                 .from(USER)
                 .where(this.isIncludes(req))
-                .and(USER.ISACTIVE.isTrue())
+                .and(USER.IS_ACTIVE.isTrue())
                 .fetch();
     }
 
