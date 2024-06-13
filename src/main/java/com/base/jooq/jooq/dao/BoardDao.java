@@ -26,28 +26,20 @@ public class BoardDao extends BaseDao {
         if (Objects.isNull(req.getKeyword())) return DSL.condition(true);
 
         return Tables.BOARD.TITLE.contains(req.getKeyword())
-                .or(Tables.BOARD.CONTENTS.contains(req.getKeyword()));
+                .or(Tables.BOARD.CONTENT.contains(req.getKeyword()));
     }
-
-    private Condition isIncludesUserNo(BoardPageReq req) {
-        if (Objects.isNull(req.getUserNo())) return DSL.condition(true);
-
-        return Tables.BOARD.USERNO.eq(req.getUserNo());
-    }
-
 
     public List<Board> getAllBoard(BoardPageReq req) {
         return query.select()
                 .from(Tables.BOARD)
                 .where(isIncludes(req))
-                .and(isIncludesUserNo(req))
                 .fetch().into(Board.class);
     }
 
     public Optional<Board> getBoardByNo(Long boardNo) {
         return query.select()
                 .from(Tables.BOARD)
-                .where(Tables.BOARD.BOARDNO.eq(boardNo))
+                .where(Tables.BOARD.BOARD_NO.eq(boardNo))
                 .fetchOptionalInto(Board.class);
     }
 
@@ -59,7 +51,7 @@ public class BoardDao extends BaseDao {
 
     public Boolean remove(Long boardNo) {
         return query.deleteFrom(Tables.BOARD)
-                .where(Tables.BOARD.BOARDNO.eq((boardNo)))
+                .where(Tables.BOARD.BOARD_NO.eq((boardNo)))
                 .execute() > 0;
     }
 
