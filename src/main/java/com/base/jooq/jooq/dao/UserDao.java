@@ -21,28 +21,33 @@ import static com.base.jooq.jooq.bean.Tables.USER;
 @RequiredArgsConstructor
 public class UserDao extends BaseDao {
 
-    private final DSLContext query;
+    private final com.base.jooq.jooq.bean.tables.User user = USER;
+    private DSLContext query;
+
+    public UserDao(DSLContext query) {
+        this.query = query;
+    }
 
 
     private Condition isIncludes(UserPageReq req) {
         if (Objects.isNull(req.getName())) return DSL.condition(true);
 
-        return USER.NAME.contains(req.getName())
-                .and(USER.IS_ACTIVE.isTrue());
+        return user.NAME.contains(req.getName())
+                .and(user.IS_ACTIVE.isTrue());
     }
 
     public Result<?> getUsers(UserPageReq req) {
         return query.select()
-                .from(USER)
+                .from(user)
                 .where(this.isIncludes(req))
-                .and(USER.IS_ACTIVE.isTrue())
+                .and(user.IS_ACTIVE.isTrue())
                 .fetch();
     }
 
     public Optional<User> getUserByNo(Long userNo) {
         return query.select()
-                .from(USER)
-                .where(USER.USER_NO
+                .from(user)
+                .where(user.USER_NO
                 .eq(userNo))
                 .fetchOptionalInto(User.class);
     }

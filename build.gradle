@@ -25,7 +25,10 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-jooq'
+//	implementation 'org.springframework.boot:spring-boot-starter-jooq'
+	// https://mvnrepository.com/artifact/org.jooq/jooq
+	implementation group: 'org.jooq', name: 'jooq', version: '3.16.23'
+
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -52,7 +55,7 @@ dependencies {
 }
 
 jooq {
-	version = '3.19.9'
+	version = '3.16.23'
 	edition = 'OSS'
 	generateSchemaSourceOnCompilation = true
 	Db(sourceSets.main) {

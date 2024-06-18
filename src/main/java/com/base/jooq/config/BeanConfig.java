@@ -9,9 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * Configuration annotation은 Bean을 수동으로 등록하기 위한 설정 파일이라고 명시
- * Confituration의 역할은 스프링 컨테이너에서 이 안에 등록된 Bean들을 관리할 수 있게 하고
- * 해당 Bean들을 싱글톤으로 유지
+ * Configuration annotation은 Bean을 수동으로 등록하기 위한 설정 파일이라고 명시,
+ * Confituration의 역할은 스프링 컨테이너에서 이 안에 등록된 Bean들을 관리할 수 있게 하고 해당 Bean들을 싱글톤으로 유지한다.
  */
 @Configuration(value = "config")
 public class BeanConfig {
