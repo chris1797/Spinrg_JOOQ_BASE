@@ -23,7 +23,7 @@ import static com.base.jooq.jooq.bean.Tables.BOARD;
 public class BoardDao extends BaseDao {
 
     private final com.base.jooq.jooq.bean.tables.Board board = BOARD;
-    private static DSLContext query;
+    private final DSLContext query;
 
     private Condition isIncludes(BoardPageReq req) {
         if (Objects.isNull(req.getKeyword())) return DSL.condition(true);
