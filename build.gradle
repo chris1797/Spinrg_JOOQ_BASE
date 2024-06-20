@@ -11,7 +11,7 @@ sourceCompatibility = '11'
 compileJava.options.encoding = "UTF-8"
 
 java {
-	sourceCompatibility = '11'
+	sourceCompatibility = '21'
 }
 
 configurations {
@@ -25,7 +25,8 @@ repositories {
 }
 
 dependencies {
-	implementation group: 'org.jooq', name: 'jooq', version: '3.16.23'
+	// https://mvnrepository.com/artifact/org.jooq/jooq
+	implementation group: 'org.jooq', name: 'jooq', version: '3.19.10'
 	implementation 'org.springframework.boot:spring-boot-starter-jooq'
 	// https://mvnrepository.com/artifact/org.jooq/jooq
 
@@ -55,7 +56,7 @@ dependencies {
 }
 
 jooq {
-	version = '3.16.23'
+	version = '3.19.10'
 	edition = 'OSS'
 	generateSchemaSourceOnCompilation = true
 	Db(sourceSets.main) {
