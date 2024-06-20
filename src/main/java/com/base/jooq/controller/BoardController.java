@@ -3,6 +3,7 @@ package com.base.jooq.controller;
 import com.base.jooq.jooq.bean.tables.pojos.Board;
 import com.base.jooq.jooq.dto.request.board.BoardPageReq;
 import com.base.jooq.jooq.dto.request.board.BoardSaveReq;
+import com.base.jooq.jooq.dto.response.BoardResponse;
 import com.base.jooq.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class BoardController {
 
 
     @GetMapping
-    public ResponseEntity<List<Board>> getAllBoard(@ModelAttribute BoardPageReq req) {
+    public ResponseEntity<List<BoardResponse>> getAllBoard(@ModelAttribute BoardPageReq req) {
         return ResponseEntity.ok().body(service.getAllBoard(req));
     }
 

@@ -2,7 +2,10 @@ package com.base.jooq.jooq.dao;
 
 import com.base.jooq.jooq.bean.tables.pojos.Board;
 import com.base.jooq.jooq.bean.tables.records.BoardRecord;
+import com.base.jooq.jooq.dto.reference.BoardDto;
+import com.base.jooq.jooq.dto.reference.CommentDto;
 import com.base.jooq.jooq.dto.request.board.BoardPageReq;
+import com.base.jooq.jooq.dto.response.BoardResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.Condition;
@@ -32,11 +35,11 @@ public class BoardDao extends BaseDao {
                 .or(board.CONTENT.contains(req.getKeyword()));
     }
 
-    public List<Board> getAllBoard(BoardPageReq req) {
+    public List<BoardResponse> getAllBoard(BoardPageReq req) {
         return query.select()
                 .from(board)
                 .where(isIncludes(req))
-                .fetch().into(Board.class);
+                .fetch().into(BoardResponse.class);
     }
 
     public Optional<Board> getBoardByNo(Long boardNo) {
@@ -58,4 +61,10 @@ public class BoardDao extends BaseDao {
                 .execute() > 0;
     }
 
+    public CommentDto getCommentByBoardNo(Long boardNo) {
+        return query.select()
+                .from(testDb.COMMENT)
+                .where(testDb.COMMENT.BOARD_NO.eq(boardNo))
+                .fetchOneInto(CommentDto.class);
+    }
 }

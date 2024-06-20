@@ -3,8 +3,10 @@ package com.base.jooq.service;
 import com.base.jooq.jooq.bean.tables.pojos.Board;
 import com.base.jooq.jooq.bean.tables.records.BoardRecord;
 import com.base.jooq.jooq.dao.BoardDao;
+import com.base.jooq.jooq.dto.reference.BoardDto;
 import com.base.jooq.jooq.dto.request.board.BoardPageReq;
 import com.base.jooq.jooq.dto.request.board.BoardSaveReq;
+import com.base.jooq.jooq.dto.response.BoardResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -21,11 +23,10 @@ public class BoardService extends BaseService {
     private final BoardDao dao;
     private final ModelMapper mapper;
 
-    public List<Board> getAllBoard(BoardPageReq req) {
-        /**
-         * Result<?> 타입으로 리턴되었을 경우 Tblboard 클래스타입으로 변환
-         */
-//        return dao.getAllBoard(req).into(Tblboard.class);
+    public List<BoardResponse> getAllBoard(BoardPageReq req) {
+        List<BoardResponse> list = dao.getAllBoard(req);
+        list.stream().peek(board -> board.setComment(dao.getCommentByBoardNo(board.getBoardNo())));
+
         return dao.getAllBoard(req);
     }
 
