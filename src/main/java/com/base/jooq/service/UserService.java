@@ -11,6 +11,7 @@ import org.jooq.Result;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +27,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
 
+    @Transactional(readOnly = true)
     public List<User> getUsers(UserPageReq req) {
         Result<?> queryResults = dao.getUsers(req);
 
@@ -34,6 +36,12 @@ public class UserService {
                 .map(query -> mapper.map(query.into(User.class), User.class)).collect(Collectors.toList());
 
         return list;
+    }
+
+    @Transactional(readOnly = true)
+    public User getUser(Long userNo) throws Exception {
+        if (Objects.isNull(userNo) || userNo < 1) throw new Exception("This data could not be found.");
+        return mapper.map(dao.getUserByNo(userNo), User.class);
     }
 
     public Boolean signUp(UserSaveReq req) throws Exception {
@@ -47,9 +55,6 @@ public class UserService {
         return false;
     }
 
-    public User getUser(Long userNo) throws Exception {
-        if (Objects.isNull(userNo) || userNo < 1) throw new Exception("This data could not be found.");
-        return mapper.map(dao.getUserByNo(userNo), User.class);
-    }
-    
+
+
 }

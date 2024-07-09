@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,6 +24,7 @@ public class BoardService extends BaseService {
     private final BoardDao dao;
     private final ModelMapper mapper;
 
+    @Transactional(readOnly = true)
     public List<BoardResponse> getAllBoard(BoardPageReq req) {
         List<BoardResponse> list = dao.getAllBoard(req);
         list.stream().peek(board -> board.setComment(dao.getCommentByBoardNo(board.getBoardNo())));
@@ -30,6 +32,7 @@ public class BoardService extends BaseService {
         return dao.getAllBoard(req);
     }
 
+    @Transactional(readOnly = true)
     public Board getBoard(Long boardNo) throws Exception{
         return dao.getBoardByNo(boardNo).orElseThrow(() ->
                 new Exception("This data could not be found."));
