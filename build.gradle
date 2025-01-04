@@ -73,7 +73,7 @@ jooq {
 		test_db {
 			generationTool {
 				jdbc {
-					driver = 'com.mysql.jdbc.Driver'
+					driver = 'com.mysql.cj.jdbc.Driver'
 					url = 'jdbc:mysql://localhost:3306'
 					user = 'root'
 					password = ''
@@ -101,12 +101,18 @@ jooq {
 					}
 
 					target { // 생성된 DSL 을 저장할 위치
-						packageName = group + '.jooq.bean'
-						directory = file('src/main/java').absolutePath
-						encoding = 'UTF-8'
+						directory = 'src/main/generated'
 					}
 				}
 			}
+		}
+	}
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ["src/main/generated", "src/main/java"]
 		}
 	}
 }
