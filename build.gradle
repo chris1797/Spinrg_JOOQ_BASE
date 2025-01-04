@@ -1,17 +1,22 @@
+buildscript {
+	ext {
+		jooqVersion = '3.19.10'
+	}
+}
+
 plugins {
 	id 'java'
-	id 'nu.studer.jooq' version '4.1'
-	id 'org.springframework.boot' version '2.7.17'
-	id 'io.spring.dependency-management' version '1.1.3'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'nu.studer.jooq' version '9.0'
 }
 
 group = 'com.base.jooq'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
 compileJava.options.encoding = "UTF-8"
 
 java {
-	sourceCompatibility = '21'
+	sourceCompatibility = '17'
 }
 
 configurations {
@@ -26,8 +31,6 @@ repositories {
 
 dependencies {
 	// https://mvnrepository.com/artifact/org.jooq/jooq
-	implementation group: 'org.jooq', name: 'jooq', version: '3.19.10'
-	implementation 'org.springframework.boot:spring-boot-starter-jooq'
 	// https://mvnrepository.com/artifact/org.jooq/jooq
 
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -35,17 +38,25 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation "org.jooq:jooq:${jooqVersion}"
+	implementation 'org.springframework.boot:spring-boot-starter-jooq'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// 강의에 새로 추가된 제네레이터 관련 옵션들
+	jooqGenerator 'com.mysql:mysql-connector-j'
+	jooqGenerator "org.jooq:jooq:${jooqVersion}"
+	jooqGenerator "org.jooq:jooq-meta:${jooqVersion}"
 }
 
 dependencies {
 	implementation group: 'org.eclipse.persistence', name: 'javax.persistence', version: '2.2.1'
 	implementation 'mysql:mysql-connector-java:5.1.48'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
-	jooqRuntime('org.slf4j:slf4j-simple:1.7.9')
-	jooqRuntime 'mysql:mysql-connector-java:5.1.48'
+//	jooqRuntime('org.slf4j:slf4j-simple:1.7.9')
+//	jooqRuntime 'mysql:mysql-connector-java:5.1.48'
 
 	// test
 	implementation('org.springframework.boot:spring-boot-starter-test') {
@@ -56,56 +67,97 @@ dependencies {
 }
 
 jooq {
-	version = '3.19.10'
-	edition = 'OSS'
-	generateSchemaSourceOnCompilation = true
-	Db(sourceSets.main) {
-		jdbc {
-			driver = 'com.mysql.jdbc.Driver'
-			url = 'jdbc:mysql://localhost:3306'
-			user = 'root'
-			password = ''
-		}
-		generator {
-			name = 'org.jooq.codegen.DefaultGenerator'
-			database {
-				name = 'org.jooq.meta.mysql.MySQLDatabase'
-				schemata {
-					schema {
-						inputSchema = 'test_db'
+	version = "${jooqVersion}"
+
+	configurations {
+		test_db {
+			generationTool {
+				jdbc {
+					driver = 'com.mysql.jdbc.Driver'
+					url = 'jdbc:mysql://localhost:3306'
+					user = 'root'
+					password = ''
+				}
+
+				generator {
+					name = 'org.jooq.codegen.DefaultGenerator'
+					database {
+						name = 'org.jooq.meta.mysql.MySQLDatabase' // MySQL 을 기준으로 생성
+
+						schemata {
+							schema { // 어떤 스키마를 기준으로 DSL 을 생성할지 설정
+								inputSchema = 'test_db'
+							}
+						}
+					}
+
+					// DSL 을 생성할 때 사용할 설정
+					generate {
+						daos = true
+						records = true
+						fluentSetters = true
+						javaTimeTypes = true
+						deprecated = false
+					}
+
+					target { // 생성된 DSL 을 저장할 위치
+						packageName = group + '.jooq.bean'
+						directory = file('src/main/java').absolutePath
+						encoding = 'UTF-8'
 					}
 				}
-				forcedTypes {
-					forcedType {
-						userType = 'java.time.LocalDateTime'
-						converter = 'com.example.LocalDateTimeForVarcharConverter'
-						expression = '.*DateTime'
-						types = 'VARCHAR\\(14\\)'
-					}
-					forcedType {
-						name = 'INT'
-						expression = '.*'
-						types = 'TINYINT'
-					}
-				}
-			}
-			generate {
-				jpaAnnotations = true
-				pojos = true
-				javaTimeTypes = true // Java 8 java.time API 로 날짜,시간 표현
-				relations = true
-				globalObjectReferences = true
-				pojosEqualsAndHashCode = true
-				indexes = false
-			}
-			target {
-				packageName = group+'.jooq.bean'
-				directory = file('src/main/java').absolutePath
-				encoding = 'UTF-8'
 			}
 		}
 	}
 }
+//	edition = 'OSS'
+//	generateSchemaSourceOnCompilation = true
+//	Db(sourceSets.main) {
+//		jdbc {
+//			driver = 'com.mysql.jdbc.Driver'
+//			url = 'jdbc:mysql://localhost:3306'
+//			user = 'root'
+//			password = ''
+//		}
+//		generator {
+//			name = 'org.jooq.codegen.DefaultGenerator'
+//			database {
+//				name = 'org.jooq.meta.mysql.MySQLDatabase'
+//				schemata {
+//					schema {
+//						inputSchema = 'test_db'
+//					}
+//				}
+//				forcedTypes {
+//					forcedType {
+//						userType = 'java.time.LocalDateTime'
+//						converter = 'com.example.LocalDateTimeForVarcharConverter'
+//						expression = '.*DateTime'
+//						types = 'VARCHAR\\(14\\)'
+//					}
+//					forcedType {
+//						name = 'INT'
+//						expression = '.*'
+//						types = 'TINYINT'
+//					}
+//				}
+//			}
+//			generate {
+//				jpaAnnotations = true
+//				pojos = true
+//				javaTimeTypes = true // Java 8 java.time API 로 날짜,시간 표현
+//				relations = true
+//				globalObjectReferences = true
+//				pojosEqualsAndHashCode = true
+//				indexes = false
+//			}
+//			target {
+//				packageName = group+'.jooq.bean'
+//				directory = file('src/main/java').absolutePath
+//				encoding = 'UTF-8'
+//			}
+//		}
+//}
 
 tasks.named('test') {
 	useJUnitPlatform()
