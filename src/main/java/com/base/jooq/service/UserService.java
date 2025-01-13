@@ -1,13 +1,12 @@
 package com.base.jooq.service;
 
-import com.base.jooq.jooq.bean.tables.pojos.User;
-import com.base.jooq.jooq.bean.tables.records.UserRecord;
 import com.base.jooq.jooq.dao.UserDao;
 import com.base.jooq.jooq.dto.request.user.UserPageReq;
 import com.base.jooq.jooq.dto.request.user.UserSaveReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.Result;
+import org.jooq.generated.tables.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,10 +31,9 @@ public class UserService {
         Result<?> queryResults = dao.getUsers(req);
 
         // stream 테스트 작성하기
-        List<User> list = queryResults.stream()
-                .map(query -> mapper.map(query.into(User.class), User.class)).collect(Collectors.toList());
 
-        return list;
+        return queryResults.stream()
+                .map(query -> mapper.map(query.into(User.class), User.class)).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -49,7 +47,7 @@ public class UserService {
             throw new Exception("There is no data.");
 
         req.setUserPwd(passwordEncoder.encode(req.getUserPwd()));
-        UserRecord userRecord = mapper.map(req, UserRecord.class);
+        org.jooq.generated.tables.records.UserRecord userRecord = mapper.map(req, org.jooq.generated.tables.records.UserRecord.class);
 
         // User pojo return 타입으로 dao 구현하기
         return false;

@@ -1,10 +1,10 @@
 package com.base.jooq.controller;
 
-import com.base.jooq.jooq.bean.tables.pojos.User;
 import com.base.jooq.jooq.dto.request.user.UserPageReq;
 import com.base.jooq.jooq.dto.request.user.UserSaveReq;
 import com.base.jooq.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.jooq.generated.tables.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

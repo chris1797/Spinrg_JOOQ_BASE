@@ -1,7 +1,5 @@
 package com.base.jooq.service;
 
-import com.base.jooq.jooq.bean.tables.pojos.Board;
-import com.base.jooq.jooq.bean.tables.records.BoardRecord;
 import com.base.jooq.jooq.dao.BoardDao;
 import com.base.jooq.jooq.dto.reference.BoardDto;
 import com.base.jooq.jooq.dto.request.board.BoardPageReq;
@@ -9,6 +7,7 @@ import com.base.jooq.jooq.dto.request.board.BoardSaveReq;
 import com.base.jooq.jooq.dto.response.BoardResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jooq.generated.tables.Board;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +40,7 @@ public class BoardService extends BaseService {
     public boolean save(BoardSaveReq req) throws Exception {
         if (Objects.isNull(req)) throw new Exception("This data is null.");
 
-        BoardRecord record = mapper.map(req, BoardRecord.class);
+        org.jooq.generated.tables.records.BoardRecord record = mapper.map(req, org.jooq.generated.tables.records.BoardRecord.class);
         return dao.save(record);
     }
 

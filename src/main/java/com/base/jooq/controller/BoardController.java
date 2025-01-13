@@ -1,11 +1,11 @@
 package com.base.jooq.controller;
 
-import com.base.jooq.jooq.bean.tables.pojos.Board;
 import com.base.jooq.jooq.dto.request.board.BoardPageReq;
 import com.base.jooq.jooq.dto.request.board.BoardSaveReq;
 import com.base.jooq.jooq.dto.response.BoardResponse;
 import com.base.jooq.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.jooq.generated.tables.Board;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +24,7 @@ public class BoardController {
         return ResponseEntity.ok().body(service.getAllBoard(req));
     }
 
-    @GetMapping("/{boardNo:[\\d]+}")
+    @GetMapping("/{boardNo}")
     public ResponseEntity<Board> getBoard(@PathVariable Long boardNo) throws Exception {
         return ResponseEntity.ok().body(service.getBoard(boardNo));
     }
@@ -34,7 +34,7 @@ public class BoardController {
         return ResponseEntity.ok().body(service.save(req));
     }
 
-    @DeleteMapping(value = "/{boardNo:[\\d]+}")
+    @DeleteMapping(value = "/{boardNo}")
     public ResponseEntity<Boolean> remove(@PathVariable Long boardNo) throws Exception {
         return ResponseEntity.ok().body(service.remove(boardNo));
     }

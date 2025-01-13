@@ -102,6 +102,7 @@ jooq {
 
 					target { // 생성된 DSL 을 저장할 위치
 						directory = 'src/main/generated'
+//						directory = 'src/main/java/com/base/jooq/jooq/bean'
 					}
 				}
 			}
@@ -112,7 +113,7 @@ jooq {
 sourceSets {
 	main {
 		java {
-			srcDirs = ["src/main/generated", "src/main/java"]
+			srcDirs = ["src/main/java", "src/generated"]
 		}
 	}
 }
