@@ -46,7 +46,9 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	// 강의에 새로 추가된 제네레이터 관련 옵션들
-	jooqGenerator 'com.mysql:mysql-connector-j'
+
+//	jooqGenerator 'com.mysql:mysql-connector-j' :: jOOQ-custom 서브모듈에서 사용되고 있으므로 주석처리
+	jooqGenerator project(':jOOQ-custom') // jOOQ-custom 프로젝트(서브모듈)를 참조
 	jooqGenerator "org.jooq:jooq:${jooqVersion}"
 	jooqGenerator "org.jooq:jooq-meta:${jooqVersion}"
 }
@@ -83,7 +85,7 @@ jooq {
 					name = 'org.jooq.codegen.DefaultGenerator'
 					database {
 						name = 'org.jooq.meta.mysql.MySQLDatabase' // MySQL 을 기준으로 생성
-
+//						unsignedTypes = true // unsigned 타입을 사용할 수 있도록 설정, 기본값 true
 						schemata {
 							schema { // 어떤 스키마를 기준으로 DSL 을 생성할지 설정
 								inputSchema = 'test_db'
@@ -95,15 +97,18 @@ jooq {
 					generate {
 						daos = true
 						records = true
-						fluentSetters = true
-						javaTimeTypes = true
+						fluentSetters = true // setter 사용 시 리턴 타입이 void 가 아닌 자기 자신을 리턴하도록 설정함
+						javaTimeTypes = true // false 면 java.sql.Date 를 사용함, true 면 java.time.LocalDate 를 사용함. 켜는거 완전 강추
 						deprecated = false
 					}
 
 					target { // 생성된 DSL 을 저장할 위치
-						directory = 'src/main/generated'
+						directory = 'src/generated'
 //						directory = 'src/main/java/com/base/jooq/jooq/bean'
 					}
+
+					// 왜 따로 서브모듈로 빼서 사용하는지?
+					strategy.name = 'jooq.custom.generator.JPrefixGeneratorStrategy'
 				}
 			}
 		}

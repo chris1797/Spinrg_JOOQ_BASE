@@ -7,14 +7,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
-import org.jooq.generated.TestDb;
-import org.jooq.generated.tables.Board;
+import org.jooq.generated.tables.pojos.Board;
 import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 
 
 @Slf4j
@@ -27,7 +27,7 @@ public class BoardDao extends BaseDao {
     private Condition isIncludes(BoardPageReq req) {
         if (Objects.isNull(req.getKeyword())) return DSL.condition(true);
 
-        return TestDb.TEST_DB.BOARD.TITLE.contains(req.getKeyword())
+        return testDb.BOARD.TITLE.contains(req.getKeyword())
                 .or(testDb.BOARD.CONTENTS.contains(req.getKeyword()));
     }
 
@@ -38,7 +38,7 @@ public class BoardDao extends BaseDao {
                 .fetch().into(BoardResponse.class);
     }
 
-    public Optional<org.jooq.generated.tables.Board> getBoardByNo(Long boardNo) {
+    public Optional<Board> getBoardByNo(Long boardNo) {
         return query.select()
                 .from(testDb.BOARD)
                 .where(testDb.BOARD.BOARDNO.eq(boardNo))

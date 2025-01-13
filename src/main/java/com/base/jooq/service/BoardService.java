@@ -1,13 +1,12 @@
 package com.base.jooq.service;
 
 import com.base.jooq.jooq.dao.BoardDao;
-import com.base.jooq.jooq.dto.reference.BoardDto;
 import com.base.jooq.jooq.dto.request.board.BoardPageReq;
 import com.base.jooq.jooq.dto.request.board.BoardSaveReq;
 import com.base.jooq.jooq.dto.response.BoardResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jooq.generated.tables.Board;
+import org.jooq.generated.tables.pojos.Board;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -4,7 +4,7 @@ import com.base.jooq.jooq.dto.request.user.UserPageReq;
 import com.base.jooq.jooq.dto.request.user.UserSaveReq;
 import com.base.jooq.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.jooq.generated.tables.User;
+import org.jooq.generated.tables.pojos.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +23,7 @@ public class UserController {
         return ResponseEntity.ok(service.getUsers(req));
     }
 
-    @GetMapping("/{userNo:[\\d]+}")
+    @GetMapping("/{userNo}")
     public ResponseEntity<User> getUser(@PathVariable Long userNo) throws Exception {
         return ResponseEntity.ok(service.getUser(userNo));
     }

@@ -6,7 +6,7 @@ import com.base.jooq.jooq.dto.request.user.UserSaveReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.Result;
-import org.jooq.generated.tables.User;
+import org.jooq.generated.tables.pojos.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

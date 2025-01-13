@@ -5,7 +5,7 @@ import com.base.jooq.jooq.dto.request.board.BoardSaveReq;
 import com.base.jooq.jooq.dto.response.BoardResponse;
 import com.base.jooq.service.BoardService;
 import lombok.RequiredArgsConstructor;
-import org.jooq.generated.tables.Board;
+import org.jooq.generated.tables.pojos.Board;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
