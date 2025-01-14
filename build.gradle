@@ -70,7 +70,6 @@ dependencies {
 
 jooq {
 	version = "${jooqVersion}"
-
 	configurations {
 		test_db {
 			generationTool {
@@ -91,6 +90,23 @@ jooq {
 								inputSchema = 'test_db'
 							}
 						}
+
+						// Java 의 타입과 DB 의 타입이 매칭되지 않는 경우 강제로 매칭시킬 수 있음
+						// 아래 옵셥들은 MySQL 에서 사용되는 타입을 Java 의 타입으로 매칭시키는 설정
+						forcedTypes {
+							forcedType {
+								userType = 'java.lang.Long'
+								includeTypes = 'int unsigned'
+							}
+							forcedType {
+								userType = 'java.lang.Integer'
+								includeTypes = 'tinyint unsigned'
+							}
+							forcedType {
+								userType = 'java.lang.Integer'
+								includeTypes = 'smallint unsigned'
+							}
+						}
 					}
 
 					// DSL 을 생성할 때 사용할 설정
@@ -109,6 +125,8 @@ jooq {
 
 					// 왜 따로 서브모듈로 빼서 사용하는지?
 					strategy.name = 'jooq.custom.generator.JPrefixGeneratorStrategy'
+
+
 				}
 			}
 		}

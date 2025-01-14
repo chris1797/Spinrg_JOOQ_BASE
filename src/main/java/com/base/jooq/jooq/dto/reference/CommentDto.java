@@ -6,9 +6,6 @@ import lombok.Value;
 
 import java.io.Serializable;
 
-/**
- * DTO for {@link com.base.jooq.jooq.bean.tables.pojos.Comment}
- */
 @Data
 @NoArgsConstructor
 public class CommentDto implements Serializable {

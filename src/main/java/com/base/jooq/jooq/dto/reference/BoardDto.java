@@ -6,9 +6,6 @@ import lombok.Value;
 
 import java.io.Serializable;
 
-/**
- * DTO for {@link com.base.jooq.jooq.bean.tables.pojos.Board}
- */
 @Data
 @NoArgsConstructor
 public class BoardDto implements Serializable {

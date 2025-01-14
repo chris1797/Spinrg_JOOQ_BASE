@@ -19,20 +19,20 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class BoardService extends BaseService {
 
-    private final BoardDao dao;
+    private final BoardDao boardDao;
     private final ModelMapper mapper;
 
     @Transactional(readOnly = true)
     public List<BoardResponse> getAllBoard(BoardPageReq req) {
-        List<BoardResponse> list = dao.getAllBoard(req);
-        list.stream().peek(board -> board.setComment(dao.getCommentByBoardNo(board.getBoardNo())));
+        List<BoardResponse> list = boardDao.getAllBoardWithComment(req);
+//        list.forEach(board -> board.setComment(boardDao.getCommentByBoardNo(board.getBoardNo())));
 
-        return dao.getAllBoard(req);
+        return boardDao.getAllBoardWithComment(req);
     }
 
     @Transactional(readOnly = true)
     public Board getBoard(Long boardNo) throws Exception{
-        return dao.getBoardByNo(boardNo).orElseThrow(() ->
+        return boardDao.getBoardByNo(boardNo).orElseThrow(() ->
                 new Exception("This data could not be found."));
     }
 
@@ -40,11 +40,11 @@ public class BoardService extends BaseService {
         if (Objects.isNull(req)) throw new Exception("This data is null.");
 
         org.jooq.generated.tables.records.BoardRecord record = mapper.map(req, org.jooq.generated.tables.records.BoardRecord.class);
-        return dao.save(record);
+        return boardDao.save(record);
     }
 
     public boolean remove(Long boardNo) throws Exception {
         if (Objects.isNull(boardNo) || boardNo < 1) throw new Exception("This data could not be found.");
-        return dao.remove(boardNo);
+        return boardDao.remove(boardNo);
     }
 }
