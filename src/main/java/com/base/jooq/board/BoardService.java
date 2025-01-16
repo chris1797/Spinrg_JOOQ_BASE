@@ -1,9 +1,9 @@
-package com.base.jooq.service;
+package com.base.jooq.board;
 
-import com.base.jooq.jooq.dao.BoardDao;
 import com.base.jooq.jooq.dto.request.board.BoardPageReq;
 import com.base.jooq.jooq.dto.request.board.BoardSaveReq;
 import com.base.jooq.jooq.dto.response.BoardResponse;
+import com.base.jooq.service.BaseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.generated.tables.pojos.Board;

@@ -1,9 +1,8 @@
-package com.base.jooq.controller;
+package com.base.jooq.board;
 
 import com.base.jooq.jooq.dto.request.board.BoardPageReq;
 import com.base.jooq.jooq.dto.request.board.BoardSaveReq;
 import com.base.jooq.jooq.dto.response.BoardResponse;
-import com.base.jooq.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.jooq.generated.tables.pojos.Board;
 import org.springframework.http.ResponseEntity;

@@ -125,8 +125,6 @@ jooq {
 
 					// 왜 따로 서브모듈로 빼서 사용하는지?
 					strategy.name = 'jooq.custom.generator.JPrefixGeneratorStrategy'
-
-
 				}
 			}
 		}

@@ -1,5 +1,6 @@
-package com.base.jooq.jooq.dao;
+package com.base.jooq.board;
 
+import com.base.jooq.jooq.dao.BaseDao;
 import com.base.jooq.jooq.dto.reference.CommentDto;
 import com.base.jooq.jooq.dto.request.board.BoardPageReq;
 import com.base.jooq.jooq.dto.response.BoardResponse;
