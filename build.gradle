@@ -75,9 +75,9 @@ jooq {
 			generationTool {
 				jdbc {
 					driver = 'com.mysql.cj.jdbc.Driver'
-					url = 'jdbc:mysql://localhost:3306'
+					url = 'jdbc:mysql://localhost:3308'
 					user = 'root'
-					password = ''
+					password = 'passwd'
 				}
 
 				generator {
@@ -87,7 +87,7 @@ jooq {
 //						unsignedTypes = true // unsigned 타입을 사용할 수 있도록 설정, 기본값 true
 						schemata {
 							schema { // 어떤 스키마를 기준으로 DSL 을 생성할지 설정
-								inputSchema = 'test_db'
+								inputSchema = 'sakila'
 							}
 						}
 
