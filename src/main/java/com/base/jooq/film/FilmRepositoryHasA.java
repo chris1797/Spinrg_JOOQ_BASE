@@ -18,7 +18,6 @@ import java.util.List;
 public class FilmRepositoryHasA {
 
     private final DSLContext dsl;
-    private final FilmDao filmDao;
     private final JFilm FILM = JFilm.FILM;
 
 
