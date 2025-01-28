@@ -19,13 +19,8 @@ public class FilmRepositoryHasA {
 
     private final DSLContext dsl;
     private final JFilm FILM = JFilm.FILM;
+    private final FilmDao filmDao;
 
-
-    public Film findById(Long filmId) {
-        return dsl.select(FILM.fields())
-                .where(FILM.FILM_ID.eq(filmId))
-                .fetchOneInto(Film.class);
-    }
 
     public List<FilmWithActor> getFilmActorPageResponse(Long page, Long size) {
         JFilmActor FILM_ACTOR = JFilmActor.FILM_ACTOR;
