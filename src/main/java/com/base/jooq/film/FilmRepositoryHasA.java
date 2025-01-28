@@ -1,6 +1,7 @@
 package com.base.jooq.film;
 
 import lombok.RequiredArgsConstructor;
+import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.generated.tables.JActor;
 import org.jooq.generated.tables.JFilm;
@@ -14,13 +15,21 @@ import java.util.List;
 
 
 @Repository
-@RequiredArgsConstructor
 public class FilmRepositoryHasA {
 
     private final DSLContext dsl;
     private final JFilm FILM = JFilm.FILM;
     private final FilmDao filmDao;
 
+
+    public FilmRepositoryHasA(DSLContext dsl, Configuration configuration) {
+        this.filmDao = new FilmDao(configuration);
+        this.dsl = dsl;
+    }
+
+    public Film findById(Long filmId) {
+        return filmDao.fetchOneByJFilmId(filmId);
+    }
 
     public List<FilmWithActor> getFilmActorPageResponse(Long page, Long size) {
         JFilmActor FILM_ACTOR = JFilmActor.FILM_ACTOR;

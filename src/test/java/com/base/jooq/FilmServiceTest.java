@@ -1,9 +1,7 @@
 package com.base.jooq;
 
-import com.base.jooq.film.FilmRepository;
-import com.base.jooq.film.FilmRepositoryIsA;
-import com.base.jooq.film.FilmService;
-import com.base.jooq.film.FilmWithActor;
+import com.base.jooq.film.*;
+import org.jooq.generated.tables.pojos.Film;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,9 @@ public class FilmServiceTest {
     FilmRepositoryIsA filmRepositoryIsA;
 
     @Autowired
+    FilmRepositoryHasA filmRepositoryHasA;
+
+    @Autowired
     FilmRepository filmRepository;
 
     @DisplayName("Join으로 연관된 테이블의 데이터를 가져오는 테스트")
@@ -31,11 +32,19 @@ public class FilmServiceTest {
         System.out.println(filmActorPageResponse);
     }
 
-    @DisplayName("Jooq Dao를 상속받아 사용하는 테스트")
+    @DisplayName("Jooq Dao를 상속받아 사용하는 테스트 - FilmRepositoryIsA")
     @Test
     public void getFilmActorPageResponseIsA() {
-        List<FilmWithActor> filmActorPageResponse = filmRepositoryIsA.getFilmActorPageResponse(1L, 10L);
+        List<Film> filmActorPageResponse = filmRepositoryIsA.fetchByJFilmId(1L);
 
         System.out.println(filmActorPageResponse);
+    }
+
+    @DisplayName("Jooq Dao를 생성자로 주입받아 사용하는 테스트 - FilmRepositoryHasA")
+    @Test
+    public void getFilmActorPageResponseHasA() {
+        Film film = filmRepositoryHasA.findById(1L);
+
+        System.out.println(film);
     }
 }
